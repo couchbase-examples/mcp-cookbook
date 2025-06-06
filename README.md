@@ -34,7 +34,7 @@ MCP aims to break down data silos, making it easier for AI to integrate with rea
 
 ### 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/mcp-cookbook.git
+   git clone https://github.com/couchbase-examples/mcp-cookbook.git
    cd mcp-cookbook
    ```
 
