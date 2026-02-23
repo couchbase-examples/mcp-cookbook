@@ -32,14 +32,14 @@ MCP aims to break down data silos, making it easier for AI to integrate with rea
 
 ## Running the MCP Server
 
-The tutorials in this cookbook use the prebuilt `mcp-server-couchbase` package from PyPI. There are two ways to run the MCP server:
+The tutorials in this cookbook use the prebuilt `couchbase-mcp-server` package from PyPI. There are two ways to run the MCP server:
 
 ### Option 1: Using Prebuilt Package (Recommended)
 
 The easiest way is to use the prebuilt package via `uvx`:
 
 ```bash
-uvx mcp-server-couchbase
+uvx couchbase-mcp-server
 ```
 
 This automatically downloads and executes the latest version of the MCP server from PyPI. The server will be started with environment variables from your `.env` file or system environment.
