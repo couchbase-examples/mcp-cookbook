@@ -74,6 +74,7 @@ Copy the `.env.sample` file in each tutorial's directory to `.env` and fill in t
 ```bash
 # Example for LangChain tutorial
 cp langchain_mcp_adapter/.env.sample langchain_mcp_adapter/.env
+```
 
 ### 3. Install Dependencies
 Each tutorial notebook includes a cell with pinned dependency versions. The notebooks will install these dependencies automatically when you run the installation cell.
