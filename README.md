@@ -51,9 +51,8 @@ If you need to modify the server or run a specific version, you can clone and ru
 ```bash
 git clone https://github.com/Couchbase-Ecosystem/mcp-server-couchbase.git
 cd mcp-server-couchbase
-pip install -e .
-mcp-server-couchbase
 ```
+you can execute server script (src/mcp_server.py) using uv (Python project manager).
 
 **Note:** The tutorials in this cookbook are configured to use the prebuilt package via `uvx`. If you choose to run from source, you'll need to update the server configuration in the notebooks accordingly.
 
