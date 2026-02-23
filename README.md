@@ -28,7 +28,36 @@ MCP aims to break down data silos, making it easier for AI to integrate with rea
 
 - Python 3.10 or higher.
 - A running Couchbase cluster. The easiest way to get started is to use [Capella](https://docs.couchbase.com/cloud/get-started/create-account.html#getting-started) free tier, which is fully managed version of Couchbase server. You can follow [instructions](https://docs.couchbase.com/cloud/clusters/data-service/import-data-documents.html#import-sample-data) to import one of the sample datasets or import your own.
-- [uv](https://docs.astral.sh/uv/) installed to run the server.
+- [uv](https://docs.astral.sh/uv/) installed to run the MCP server via `uvx`.
+
+## Running the MCP Server
+
+The tutorials in this cookbook use the prebuilt `mcp-server-couchbase` package from PyPI. There are two ways to run the MCP server:
+
+### Option 1: Using Prebuilt Package (Recommended)
+
+The easiest way is to use the prebuilt package via `uvx`:
+
+```bash
+uvx mcp-server-couchbase
+```
+
+This automatically downloads and executes the latest version of the MCP server from PyPI. The server will be started with environment variables from your `.env` file or system environment.
+
+### Option 2: Running from Source
+
+If you need to modify the server or run a specific version, you can clone and run from source:
+
+```bash
+git clone https://github.com/Couchbase-Ecosystem/mcp-server-couchbase.git
+cd mcp-server-couchbase
+pip install -e .
+mcp-server-couchbase
+```
+
+**Note:** The tutorials in this cookbook are configured to use the prebuilt package via `uvx`. If you choose to run from source, you'll need to update the server configuration in the notebooks accordingly.
+
+For more details about the MCP server, visit the [mcp-server-couchbase GitHub repository](https://github.com/Couchbase-Ecosystem/mcp-server-couchbase).
 
 ## Setup
 
@@ -40,9 +69,16 @@ MCP aims to break down data silos, making it easier for AI to integrate with rea
 
 ### 2. Fill in environment variables:
 
-Use the `.env` file in each tutorial's directory to fill details about the environment variables required to run each tutorial.
+Copy the `.env.sample` file in each tutorial's directory to `.env` and fill in the environment variables:
 
-### 3. Run the notebook file
+```bash
+# Example for LangChain tutorial
+cp langchain_mcp_adapter/.env.sample langchain_mcp_adapter/.env
+
+### 3. Install Dependencies
+Each tutorial notebook includes a cell with pinned dependency versions. The notebooks will install these dependencies automatically when you run the installation cell.
+
+### 4. Run the notebook file
 
 You can either run the notebook file on [Google Colab](https://colab.research.google.com/) or run it on your system by setting up the Python environment.
 
