@@ -1,6 +1,6 @@
-# Couchbase MCP Integrations
+# Building AI Agents using Couchbase MCP Server
 
-This project demonstrates the integration of a Large Language Model (LLM) with a Couchbase database using the Model Context Protocol (MCP). It showcases how AI agents can understand natural language queries, interact with a Couchbase instance to retrieve or manipulate data, and provide meaningful responses.
+This project showcases building AI Agents using Couchbase with the official Couchbase Model Context Protocol (MCP) server.
 
 Users can ask questions like:
 *   "List out the top 5 hotels by the highest aggregate rating?"
