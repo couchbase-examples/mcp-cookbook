@@ -15,6 +15,7 @@ tags:
   - OpenAI
   - Artificial Intelligence
   - LangChain
+  - LangGraph
   - Model Context Protocol (MCP)
 sdk_language:
   - python
