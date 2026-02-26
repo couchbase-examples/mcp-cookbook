@@ -9,8 +9,6 @@ description:
   - You will understand how to use MCP to expose Couchbase database tools to an AI agent for natural language data exploration.
 content_type: tutorial
 filter: sdk
-technology:
-  - Model Context Protocol (MCP)
 tags:
   - OpenAI
   - Artificial Intelligence
