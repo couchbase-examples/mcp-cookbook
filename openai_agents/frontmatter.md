@@ -14,7 +14,6 @@ technology:
 tags:
   - OpenAI
   - Artificial Intelligence
-  - Agents
   - Model Context Protocol (MCP)
 sdk_language:
   - python
