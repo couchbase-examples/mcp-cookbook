@@ -10,7 +10,7 @@ description:
 content_type: tutorial
 filter: sdk
 technology:
-  - query
+  - model context protocol (mcp)
 tags:
   - OpenAI
   - Artificial Intelligence
