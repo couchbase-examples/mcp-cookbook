@@ -9,6 +9,8 @@ description:
   - You will understand how to use the Model Context Protocol to give your LangChain agent access to Couchbase-backed tools.
 content_type: tutorial
 filter: sdk
+technology:
+  - query
 tags:
   - OpenAI
   - Artificial Intelligence
