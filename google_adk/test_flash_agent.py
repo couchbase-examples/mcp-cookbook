@@ -1,10 +1,11 @@
 """
-Test script for Google ADK + Couchbase MCP Server agent.
-Run this first to verify everything works before creating the Jupyter notebook.
+Test script for Google ADK + Couchbase MCP Server agent on `gemini-2.5-flash`.
+Mirrors the 5 questions from the tutorial notebook so we can A/B compare against
+test_flash_lite_agent.py.
 
 Usage:
     pip install google-adk python-dotenv
-    python test_agent.py
+    python test_flash_agent.py
 """
 
 import asyncio
@@ -37,48 +38,53 @@ if not CB_CONNECTION_STRING or not CB_USERNAME or not CB_PASSWORD:
         "GOOGLE_GENAI_API_KEY, CB_CONNECTION_STRING, CB_USERNAME, CB_PASSWORD"
     )
 
-SYSTEM_PROMPT = """You are a Couchbase database assistant connected to a Couchbase cluster
-with the `travel-sample` bucket. This bucket contains travel-related data organized
-under the `inventory` scope.
+MODEL = "gemini-2.5-flash"
 
-Use the provided tools to check cluster health, explore the data model
-(buckets, scopes, collections, and document schemas), run SQL++ queries,
-and perform key-value document operations.
+SYSTEM_PROMPT = """You are a Couchbase database assistant connected to
+the `travel-sample` bucket (scope: `inventory`). The connection is already
+established — do NOT call `test_cluster_connection` (it has known issues);
+just answer using the schema and query tools.
 
-IMPORTANT: ALWAYS use the tools to query the database to answer questions.
-NEVER answer from your own knowledge. If the database does not contain
-relevant data, say so explicitly rather than making up an answer.
+Always use the MCP tools to query the database — never answer from memory.
+Do not ask the user clarifying questions about the schema; the cheatsheet
+below tells you everything you need.
 
-The data is inside the `inventory` scope. Available collections:
-- `airline`: Airline information (name, callsign, iata, icao, country)
-- `airport`: Airport data (airportname, faa, city, country, geo, tz)
-- `hotel`: Hotel/accommodation data (name, city, country, address, price, reviews)
-- `landmark`: Sightseeing spots, tourist attractions, restaurants
-- `route`: Flight route information (airline, sourceairport, destinationairport, distance, schedule)
+Available collections in `inventory`: airline, airport, hotel, landmark, route.
 
-IMPORTANT SQL++ Query Rules:
-- Use only the collection name in the FROM clause (e.g., FROM `hotel`)
-- Collection names and top-level field names should be in backticks
-- For nested fields, use dot notation WITHOUT backticks around each part
-  CORRECT: `hotel`.reviews[0].ratings.Overall
-  WRONG: `hotel`.`reviews`.`ratings`.`Overall`
-- To aggregate data from arrays, use UNNEST to flatten the array first
+Schema cheatsheet:
+- `hotel`: name, city, country, address, price, reviews[*].ratings.{Overall, Cleanliness, Service}
+- `route`: airline, sourceairport, destinationairport, distance, schedule[*].flight
+- `landmark`: name, city, country, activity, content, price
 
-  Example - top hotels by aggregate rating:
-  SELECT h.`name`, SUM(r.ratings.Overall) as total_rating
-  FROM `hotel` h UNNEST h.`reviews` r
-  GROUP BY h.`name`
-  ORDER BY total_rating DESC
-  LIMIT 5
+SQL++ rules:
+- Use only the collection name in the FROM clause (e.g. `FROM hotel h`).
+  Do NOT prefix with the bucket or scope.
+- For aggregations over array fields, flatten with UNNEST first.
 
-- For flight routes, query the `route` collection and join with `airline`:
-  SELECT r.`airline`, r.`sourceairport`, r.`destinationairport`, r.`distance`
-  FROM `route` r
-  WHERE r.`sourceairport` = "JFK" AND r.`destinationairport` = "SFO"
+Common query patterns to use directly:
+
+"Top hotels by rating" — sum the Overall review rating per hotel:
+    SELECT h.name, SUM(r.ratings.Overall) AS total
+    FROM hotel h UNNEST h.reviews r
+    GROUP BY h.name
+    ORDER BY total DESC
+    LIMIT 5
+
+"Flights from X to Y":
+    SELECT r.airline, r.sourceairport, r.destinationairport, r.distance
+    FROM route r
+    WHERE r.sourceairport = "X" AND r.destinationairport = "Y"
+
+`hotel.price` and `landmark.price` are free-form strings (e.g. "$54-$104",
+"From £50") or null — never filter them numerically. For budget questions:
+    SELECT h.name, h.city, h.price
+    FROM hotel h
+    WHERE h.city = "X" AND h.price IS NOT NULL
+Then read each price string yourself and pick the ones that fit.
 """
 
 root_agent = LlmAgent(
-    model="gemini-2.5-flash",
+    model=MODEL,
     name="couchbase_agent",
     description=(
         "An agent that interacts with Couchbase databases using the "
@@ -104,18 +110,22 @@ root_agent = LlmAgent(
     ],
 )
 
-# Questions to test the agent with
+# The five questions from the tutorial notebook, in order.
 QUESTIONS = [
     "Tell me about the database that you are connected to.",
     "List out the top 5 hotels by the highest aggregate rating.",
     "Find flights from JFK to SFO and recommend a hotel in San Francisco under $200 a night.",
+    "I'm going to the UK for 1 week. Recommend some great spots to visit for sightseeing. Also mention the respective prices of those places for adults and kids.",
+    "My budget is around 30 pounds a night. What will be the best hotel to stay in?",
 ]
 
 
 async def main():
+    print(f"\n>>> Running tests against model: {MODEL}\n")
+
     session_service = InMemorySessionService()
     session = await session_service.create_session(
-        app_name="couchbase_agent", user_id="test_user"
+        app_name="couchbase_agent", user_id="test_flash_user"
     )
     runner = Runner(
         agent=root_agent,
@@ -133,7 +143,7 @@ async def main():
 
         async for event in runner.run_async(
             session_id=session.id,
-            user_id="test_user",
+            user_id="test_flash_user",
             new_message=types.Content(
                 role="user",
                 parts=[types.Part(text=question)],
