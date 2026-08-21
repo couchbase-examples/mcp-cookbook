@@ -16,5 +16,7 @@ tags:
   - OAuth
   - Security
   - Model Context Protocol (MCP)
+sdk_language:
+  - python
 length: 30 Mins
 ---
