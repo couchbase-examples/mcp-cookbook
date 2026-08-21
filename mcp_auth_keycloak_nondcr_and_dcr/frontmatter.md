@@ -1,7 +1,7 @@
 ---
 # frontmatter
 path: "/mcp-server/oauth/keycloak-nondcr-and-dcr-setup"
-title: "Securing Couchbase MCP Server with Keycloak — Non-DCR and DCR Setup"
+title: "Securing Couchbase MCP Server with Keycloak — Non-DCR and DCR Flows"
 short_title: "Couchbase MCP Server OAuth with Keycloak - Non-DCR and DCR"
 description:
   - Learn how to run the Couchbase MCP server in Streamable HTTP mode with OAuth so it can serve browser login clients authenticated by Keycloak.

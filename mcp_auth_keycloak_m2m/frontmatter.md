@@ -1,7 +1,7 @@
 ---
 # frontmatter
 path: "/mcp-server-oauth/keycloak-m2m-setup"
-title: "Securing Couchbase MCP Server with Keycloak — Machine-to-Machine Setup"
+title: "Securing Couchbase MCP Server with Keycloak — Machine-to-Machine (M2M) Flow"
 short_title: "Couchbase MCP Server OAuth with Keycloak (M2M)"
 description:
   - Learn how to run the Couchbase MCP server in Streamable HTTP mode with OAuth so it can serve machine-to-machine clients authenticated by Keycloak.
