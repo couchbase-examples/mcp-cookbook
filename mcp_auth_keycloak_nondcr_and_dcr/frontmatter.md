@@ -12,9 +12,6 @@ filter: mcp
 technology:
   - model context protocol (mcp)
 tags:
-  - Keycloak
-  - OAuth
-  - Security
   - Model Context Protocol (MCP)
 sdk_language:
   - python
