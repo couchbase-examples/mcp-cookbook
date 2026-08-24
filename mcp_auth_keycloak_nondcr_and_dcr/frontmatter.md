@@ -12,7 +12,7 @@ filter: mcp
 technology:
   - model context protocol (mcp)
 tags:
-  - model context protocol (mcp)
+  - Model Context Protocol (MCP)
 sdk_language:
   - python
 length: 30 Mins
