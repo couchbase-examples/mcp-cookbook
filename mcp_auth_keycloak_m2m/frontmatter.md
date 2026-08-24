@@ -10,7 +10,7 @@ description:
 content_type: tutorial
 filter: mcp
 technology:
-  - model context protocol (mcp)
+  - Model Context Protocol (MCP)
 tags:
   - Model Context Protocol (MCP)
 sdk_language:

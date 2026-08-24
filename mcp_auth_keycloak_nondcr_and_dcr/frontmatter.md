@@ -1,6 +1,6 @@
 ---
 # frontmatter
-path: "/mcp-server/oauth/keycloak-nondcr-and-dcr-setup"
+path: "/mcp-server-oauth/keycloak-nondcr-and-dcr-setup"
 title: "Securing Couchbase MCP Server with Keycloak — Non-DCR and DCR Flows"
 short_title: "Couchbase MCP Server OAuth with Keycloak - Non-DCR and DCR"
 description:
@@ -10,7 +10,7 @@ description:
 content_type: tutorial
 filter: mcp
 technology:
-  - model context protocol (mcp)
+  - Model Context Protocol (MCP)
 tags:
   - Model Context Protocol (MCP)
 sdk_language:
