@@ -10,9 +10,9 @@ description:
 content_type: tutorial
 filter: mcp
 technology:
-  - Model Context Protocol (MCP)
+  - model context protocol (mcp)
 tags:
-  - Model Context Protocol (MCP)
+  - model context protocol (mcp)
 sdk_language:
   - python
 length: 30 Mins
