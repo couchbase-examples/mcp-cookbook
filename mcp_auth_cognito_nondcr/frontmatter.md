@@ -6,7 +6,7 @@ short_title: "Couchbase MCP Server OAuth with AWS Cognito - Non-DCR"
 description:
   - Learn how to run the Couchbase MCP server in Streamable HTTP mode with OAuth so it can serve browser login clients authenticated by AWS Cognito.
   - This tutorial walks through creating a Cognito User Pool with a public SPA app client, a resource server whose identifier matches the MCP server's canonical resource URI, and a manually created test user.
-  - You will complete the authorization code plus PKCE flow, and verify the issued access token end to end using MCP Inspector or VS Code.
+  - You will publish a Protected Resource Metadata document, complete the authorization code plus PKCE flow, and verify the connection end to end using MCP Inspector and VS Code.
 content_type: tutorial
 filter: mcp
 technology:
