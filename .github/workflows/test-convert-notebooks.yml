@@ -8,6 +8,7 @@ on:
     paths:
       - '**/**.ipynb'
       - '**/**.md'
+      - 'util/convert/**'
 
 jobs:
   test:
@@ -30,6 +31,7 @@ jobs:
         run: |
           cd util/convert
           pip install -r requirements.txt
+          python -m unittest -v test_convert
           python convert.py
 
       - name: Checkout couchbase-tutorials
