@@ -19,10 +19,16 @@ def write_notebook(path, source="print('hi')"):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     nb = {
         "cells": [
-            {"cell_type": "markdown", "metadata": {}, "source": "# Title"},
+            {
+                "cell_type": "markdown",
+                "id": "md-1",
+                "metadata": {},
+                "source": "# Title",
+            },
             {
                 "cell_type": "code",
                 "execution_count": None,
+                "id": "code-1",
                 "metadata": {},
                 "outputs": [],
                 "source": source,
